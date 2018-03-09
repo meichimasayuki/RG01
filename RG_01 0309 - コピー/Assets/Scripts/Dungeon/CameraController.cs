@@ -103,7 +103,12 @@ public class CameraController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && !isTouch)
             {
-#if UNITY_ANDROID
+#if UNITY_EDITOR
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+#elif UNITY_ANDROID
                 if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
                     return;
@@ -114,27 +119,24 @@ public class CameraController : MonoBehaviour
                     return;
                 }
 #endif
-                timea = 0.0f;
                 isTouch = true;
                 moveVector = new Vector2(0, 0);
                 touchPosition = Input.mousePosition;
             }
             if (Input.GetMouseButton(0) && isTouch)
             {
-                timea += Time.deltaTime;
                 // 実機とエディタのスワイプ量を統一
                 moveVector = new Vector2(
                   ((Input.mousePosition.x - touchPosition.x) / Screen.width) * 5.0f,// 横回転は少し早くしたい
                   (Input.mousePosition.y - touchPosition.y) / Screen.height
                 );
             }
-            if (Input.GetMouseButtonUp(0) && isTouch)
-            {
-                touchPosition = new Vector3(0, 0, 0);
-                moveVector = new Vector2(0, 0);
-                timea = 0.0f;
-                isTouch = false;
-            }
+        }
+        if (Input.GetMouseButtonUp(0) && isTouch)
+        {
+            touchPosition = new Vector3(0, 0, 0);
+            moveVector = new Vector2(0, 0);
+            isTouch = false;
         }
     }
 

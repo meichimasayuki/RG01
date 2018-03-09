@@ -82,7 +82,12 @@ public class BattlePlayer : BattleCharacter
         // マウスの位置からRayを発射
         if (Input.GetMouseButtonDown(0))
         {
-#if UNITY_ANDROID
+#if UNITY_EDITOR
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+#elif UNITY_ANDROID
                 if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
                     return;

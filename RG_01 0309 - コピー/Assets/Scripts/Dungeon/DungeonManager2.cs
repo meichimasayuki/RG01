@@ -317,6 +317,14 @@ public class DungeonManager2 : DungeonBase
         gameManager.Battle();
     }
 
+    /*
+     * アイテム取得でシーン遷移
+     */
+    public void Crear()
+    {
+        gameManager.Crear();
+    }
+
     // プレイヤーが通った道をマップに表示
     public void PlayerPass(Trout2 trout)
     {
@@ -360,6 +368,7 @@ public class DungeonManager2 : DungeonBase
             if (troutList[i].GetCategory().Contains("CENTER"))
             {
                 GameObject item = Instantiate(ItemObj, troutList[i].GetPosition(), Quaternion.Euler(0, 0, 0)) as GameObject;
+                item.GetComponent<ItemManager>().Manager = this;
                 itemList.Add(item);
             }
         }

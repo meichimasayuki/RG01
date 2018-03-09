@@ -33,8 +33,13 @@ public class TouchPointer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isTouch)
         {
-#if UNITY_ANDROID
-                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+#if UNITY_EDITOR
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+#elif UNITY_ANDROID
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
                     return;
                 }

@@ -70,6 +70,7 @@ public class DungeonGameManager : MonoBehaviour
     {
         yield return canvasManager.FedeOut();
         if(dungeonState == DUNGEON_STATE.BATTLE) SceneManager.LoadScene("Battle");
+        else if (dungeonState == DUNGEON_STATE.CLEAR) SceneManager.LoadScene("Main");
         else SceneManager.LoadScene("Main");
     }
 
@@ -80,6 +81,15 @@ public class DungeonGameManager : MonoBehaviour
     public void Battle()
     {
         dungeonState = DUNGEON_STATE.BATTLE;
+    }
+
+    /*
+     * アイテムの取得
+     * メインシーン
+     */
+    public void Crear()
+    {
+        dungeonState = DUNGEON_STATE.CLEAR;
     }
 
     /*
