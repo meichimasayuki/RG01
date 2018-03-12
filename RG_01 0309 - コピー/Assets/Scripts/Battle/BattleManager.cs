@@ -12,10 +12,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattlePlayer playerPrefab;             // プレイヤーのプレハブ
     [SerializeField] private BattleEnemy enemyPrefab;               // 敵のプレハブ
     [SerializeField] private Text animText;                         // デバッグ用
+    [SerializeField] private TargetPointer targetPointerPrefab;     // ターゲットをわかりやすく
 
     private BattlePlayer player;                                    // プレイヤー
     private List<BattleEnemy> enemyList = new List<BattleEnemy>();  // 敵のリスト
     private List<int> targetList = new List<int>();                 // ターゲットリスト
+    private TargetPointer targetPointer;                        // ターゲットをわかりやすく
 
     private float PLAYER_POSITION = -0.5f;                          // プレイヤーの初期位置
     private enum BATTLE_STATE
@@ -39,11 +41,16 @@ public class BattleManager : MonoBehaviour
         // プレイヤーの生成
         player = Instantiate(playerPrefab, new Vector3(PLAYER_POSITION, 0.0f, 0.0f), Quaternion.Euler(0, 90, 0)) as BattlePlayer;
         PlayerStatesData stateData = GlobalDataManager.GetGlobalData().LoadPlayerStatesData();
-        if (stateData == null) player.STATES = GlobalDataManager.GetGlobalData().GetDataBase().GetPlayerStates(1);
+        if (stateData == null)
+        {
+            player.STATES = GlobalDataManager.GetGlobalData().GetDataBase().GetPlayerStates(1);
+            player.HP = player.STATES.HP;
+        }
         else
         {
             player.STATES = GlobalDataManager.GetGlobalData().GetDataBase().GetPlayerStates(stateData.LV);
             player.STATES.HP = stateData.HP;
+            player.HP = stateData.HP;
             player.STATES.MP = stateData.MP;
             player.STATES.EXP = stateData.EXP;
         }
@@ -56,11 +63,12 @@ public class BattleManager : MonoBehaviour
         {
             BattleEnemy enemy = Instantiate(enemyPrefab, new Vector3((i * 0.3f) + 0.3f, 0.0f, 0.0f), Quaternion.Euler(0, 270, 0)) as BattleEnemy;
             enemy.STATES = GlobalDataManager.GetGlobalData().GetDataBase().GetSkeletonStates(table.LEVEL);
+            enemy.HP = enemy.STATES.HP;
             enemy.Manager = this;
             enemy.Player = player;
             enemy.ID = i;
             enemyList.Add(enemy);
-            canvasManager.CreateStatesUI(enemy);
+            //canvasManager.CreateStatesUI(enemy);
             targetList.Add(i);
         }
 
@@ -71,6 +79,10 @@ public class BattleManager : MonoBehaviour
         centerPoint.Player = player.transform;
         centerPoint.TargetEnemy = enemyList[player.TargetID].transform;
         StartCoroutine(GameStart());
+
+        // ターゲットポインター
+        targetPointer = Instantiate(targetPointerPrefab);
+        targetPointer.Target = player.Enemy;
     }
 
     // ゲームの準備完了
@@ -154,11 +166,13 @@ public class BattleManager : MonoBehaviour
      */
     public void ChangeTargetEnemy()
     {
+        Debug.Log("敵の撃破");
         int target = player.TargetID + 1;
         if(targetList.Count == 0)
         {
             centerPoint.TargetEnemy = player.transform;
             player.Enemy = null;
+            targetPointer.gameObject.SetActive(false);
             return;
         }
         bool match = false;
@@ -169,6 +183,7 @@ public class BattleManager : MonoBehaviour
                 player.TargetID = target;
                 centerPoint.TargetEnemy = enemyList[target].transform;
                 player.Enemy = enemyList[target];
+                targetPointer.Target = enemyList[target];
                 match = true;
             }
         }

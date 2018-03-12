@@ -182,7 +182,8 @@ public class BattleEnemy : BattleCharacter
 
     // ダメージ判定
     public void Damage(int atk) {
-        STATES.HP -= (atk - STATES.DEF) >= 1 ? (atk - STATES.DEF) : 1;
+        HP -= (atk - STATES.DEF) >= 1 ? (atk - STATES.DEF) : 1;
+        HP = HP > 0 ? HP : 0;
         if (!IsDead())
         {
             PlayAnimation("Damage");

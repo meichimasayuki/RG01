@@ -525,6 +525,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 114998131209006850, guid: 217a1cca946ed8e4786492ab55d98fde,
     type: 2}
   animText: {fileID: 1364810779}
+  targetPointerPrefab: {fileID: 114862227424191830, guid: d622f47351c2ed145ad6ad3a143c6bd1,
+    type: 2}
 --- !u!4 &888514743
 Transform:
   m_ObjectHideFlags: 0
@@ -609,8 +611,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPoint: {fileID: 184166355}
   mainCamera: {fileID: 437836580}
-  targetPointerPrefab: {fileID: 114862227424191830, guid: d622f47351c2ed145ad6ad3a143c6bd1,
-    type: 2}
   margin: 0.3
 --- !u!4 &1111491478
 Transform:

@@ -24,7 +24,7 @@ public class StatesUIManager : MonoBehaviour
         if (_character != null)
         {
             lvpText.text = "LV." + _character.STATES.LV.ToString();
-            hpText.text = "HP : " + _character.STATES.HP.ToString();
+            hpText.text = "HP : " + _character.HP.ToString();
             mpText.text = "MP : " + _character.STATES.MP.ToString();
         }
     }

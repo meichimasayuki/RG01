@@ -23,8 +23,20 @@ public class BattleCharacter : CharacterBase
         get { return _states; }
         set { _states = value; }
     }
+    private int _hp;
+    private int _mp;
+    public int HP
+    {
+        get { return _hp; }
+        set { _hp = value; }
+    }
+    public int MP
+    {
+        get { return _mp; }
+        set { _mp = value; }
+    }
 
-    
+
     // 倒されているかどうか
-    public bool IsDead() { return _states.HP <= 0; }
+    public bool IsDead() { return _hp <= 0; }
 }

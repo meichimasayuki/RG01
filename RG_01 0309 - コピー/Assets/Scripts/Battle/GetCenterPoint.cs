@@ -6,9 +6,7 @@ public class GetCenterPoint : MonoBehaviour
 {
     [SerializeField] private Transform cameraPoint;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private TargetPointer targetPointerPrefab; // ターゲットをわかりやすく
 
-    private TargetPointer targetPointer;                        // ターゲットをわかりやすく
     public float margin = 0.2f;                                 // 半径を少し余分にとるための値
     private const float MAIN_HEIGHT = 0.1f;                     // カメラの高さ
     private const float POINT_HEIGHT = 0.1f;                    // カメラポイントの高さ
@@ -26,20 +24,10 @@ public class GetCenterPoint : MonoBehaviour
 
     void Start()
     {
-        targetPointer = Instantiate(targetPointerPrefab);
     }
 
     void LateUpdate()
     {
-        // ターゲットポインターの位置
-        if (_targetEnemy.position == _player.position) targetPointer.gameObject.SetActive(false);
-        else
-        {
-            targetPointer.gameObject.SetActive(true);
-            targetPointer.Target = _targetEnemy;
-        }
-
-
         // カメラ位置
         Vector3 center = (_player.position + _targetEnemy.position) / 2;
         transform.position = new Vector3(center.x, center.y + MAIN_HEIGHT, center.z);

@@ -48,6 +48,7 @@ public class DungeonGameManager : MonoBehaviour
     // ゲームの準備完了
     private IEnumerator GameStart()
     {
+        mainCamera.DungeonUpdate();
         yield return canvasManager.FedeIn();
         StartCoroutine(GameLoop());
     }
@@ -72,6 +73,11 @@ public class DungeonGameManager : MonoBehaviour
         if(dungeonState == DUNGEON_STATE.BATTLE) SceneManager.LoadScene("Battle");
         else if (dungeonState == DUNGEON_STATE.CLEAR) SceneManager.LoadScene("Main");
         else SceneManager.LoadScene("Main");
+    }
+
+    void Update()
+    {
+
     }
 
     /*
