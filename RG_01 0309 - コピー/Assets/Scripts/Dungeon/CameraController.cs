@@ -52,8 +52,7 @@ public class CameraController : MonoBehaviour
     {
         distance = zoomSlider.value;
     }
-
-    float timea = 0.0f;
+    
     bool isTouch = false;
     public void DungeonUpdate()
     {

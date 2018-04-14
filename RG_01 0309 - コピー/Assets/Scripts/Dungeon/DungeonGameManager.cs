@@ -9,8 +9,7 @@ public class DungeonGameManager : MonoBehaviour
     [SerializeField] private DungeonManager2 dungeonManager;      // ダンジョンマネージャー
     [SerializeField] private CameraController mainCamera;         // マップ用カメラ
     [SerializeField] private DungeonMapCamera mapCamera;         // マップ用カメラ
-    [SerializeField] private CanvasManager canvasManager;         // マップ用カメラ
-    [SerializeField] private GameObject difficultLayout;
+    [SerializeField] private CanvasBase canvasManager;         // マップ用カメラ
     [SerializeField] private Button resetButton;
 
     /*
@@ -40,7 +39,11 @@ public class DungeonGameManager : MonoBehaviour
         }
         else
         {
-            difficultLayout.SetActive(true);
+            string diff = GlobalDataManager.GetGlobalData().GetDifficulty();
+            if (diff == null) diff = "easy";
+            mapCamera.SetDungeonSize(dungeonSize[diff]);
+            dungeonManager.Create(dungeonSize[diff]);
+            resetButton.gameObject.SetActive(true);
         }
         StartCoroutine(GameStart());
     }
@@ -71,7 +74,7 @@ public class DungeonGameManager : MonoBehaviour
     {
         yield return canvasManager.FedeOut();
         if(dungeonState == DUNGEON_STATE.BATTLE) SceneManager.LoadScene("Battle");
-        else if (dungeonState == DUNGEON_STATE.CLEAR) SceneManager.LoadScene("Main");
+        else if (dungeonState == DUNGEON_STATE.CLEAR) SceneManager.LoadScene("Test");
         else SceneManager.LoadScene("Main");
     }
 
@@ -99,19 +102,6 @@ public class DungeonGameManager : MonoBehaviour
     }
 
     /*
-     * ダンジョンの生成
-     * 現状はボタンから
-     */
-    public void DungeonCreate(string difficulty)
-    {
-        GlobalDataManager.GetGlobalData().SetDifficulty(difficulty);
-        mapCamera.SetDungeonSize(dungeonSize[difficulty]);
-        difficultLayout.SetActive(false);
-        dungeonManager.Create(dungeonSize[difficulty]);
-        resetButton.gameObject.SetActive(true);
-    }
-
-    /*
      * ダンジョンの再生成
      * バトルシーンから戻ってくるとき
      */
@@ -130,8 +120,6 @@ public class DungeonGameManager : MonoBehaviour
     public void DungeonReset()
     {
         dungeonManager.Reset();
-
-        difficultLayout.SetActive(true);
-        resetButton.gameObject.SetActive(false);
+        SceneManager.LoadScene("Test");
     }
 }

@@ -96,7 +96,7 @@ public class Player : FieldCharacter
     public void FirstAreaCheck()
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-        Ray ray = new Ray(transform.position, -Vector3.up);
+        Ray ray = new Ray(pos, -Vector3.up);
         RaycastHit[] hits = Physics.RaycastAll(ray, 20.0f);
         if (hits.Length != 0)
         {

@@ -12,6 +12,7 @@ public class DungeonManager2 : DungeonBase
     [SerializeField]
     private Trout2 troutObj;
 
+    //private Player playerOwner;
     private List<GameObject> itemList = new List<GameObject>();
     private List<EnemyField> enemyList = new List<EnemyField>();
     private List<Area2> areaList = new List<Area2>();
@@ -25,7 +26,6 @@ public class DungeonManager2 : DungeonBase
 
     void Start()
     {
-        playerOwner.Manager = this;
     }
 
     public void DungeonUpdate()
@@ -85,6 +85,7 @@ public class DungeonManager2 : DungeonBase
             enemy.FirstAreaCheck();
             enemyList.Add(enemy);
         }
+        playerOwner.Manager = this;
         playerOwner.Respawn();
     }
 
@@ -139,6 +140,7 @@ public class DungeonManager2 : DungeonBase
 
         playerOwner.IsVisiblePlayer(true);
         playerOwner.ResetSetUpPlayerCamera();
+        playerOwner.Manager = this;
         playerOwner.FirstAreaCheck();
         Debug.Log("ダンジョンの生成を終了しました。");
     }

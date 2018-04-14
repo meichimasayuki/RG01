@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Battle\PlayerStatesData.cs" />
      <Compile Include="Assets\Scripts\Battle\TargetPointer.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\CanvasBase.cs" />
      <Compile Include="Assets\Scripts\CanvasManager.cs" />
      <Compile Include="Assets\Scripts\CharacterBase.cs" />
      <Compile Include="Assets\Scripts\CharacterDataBase.cs" />
@@ -97,6 +98,15 @@
      <Compile Include="Assets\Scripts\GlobalDataManager.cs" />
      <Compile Include="Assets\Scripts\iTween.cs" />
      <Compile Include="Assets\Scripts\StatesUIManager.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenu.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuButtonManager.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuGacha.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuHome.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuManager.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuMenu.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuParty.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuQuest.cs" />
+     <Compile Include="Assets\Scripts\TopMenu\TopMenuStreng.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity20171016/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

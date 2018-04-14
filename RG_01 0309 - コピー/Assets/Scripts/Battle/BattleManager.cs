@@ -78,11 +78,12 @@ public class BattleManager : MonoBehaviour
         // カメラ位置の設定
         centerPoint.Player = player.transform;
         centerPoint.TargetEnemy = enemyList[player.TargetID].transform;
-        StartCoroutine(GameStart());
 
         // ターゲットポインター
         targetPointer = Instantiate(targetPointerPrefab);
         targetPointer.Target = player.Enemy;
+
+        StartCoroutine(GameStart());
     }
 
     // ゲームの準備完了
@@ -123,12 +124,13 @@ public class BattleManager : MonoBehaviour
                 else break;
             }
             GlobalDataManager.GetGlobalData().SavePlayerStatesData(player);
+            SceneManager.LoadScene("Main");
         }
         else
         {
             GlobalDataManager.GetGlobalData().DataClear();
+            SceneManager.LoadScene("Test");
         }
-        SceneManager.LoadScene("Main");
     }
 
     /*
@@ -166,7 +168,6 @@ public class BattleManager : MonoBehaviour
      */
     public void ChangeTargetEnemy()
     {
-        Debug.Log("敵の撃破");
         int target = player.TargetID + 1;
         if(targetList.Count == 0)
         {
@@ -192,6 +193,7 @@ public class BattleManager : MonoBehaviour
             player.TargetID = targetList[0];
             centerPoint.TargetEnemy = enemyList[targetList[0]].transform;
             player.Enemy = enemyList[targetList[0]];
+            targetPointer.Target = enemyList[targetList[0]];
         }
     }
 
